@@ -1,54 +1,41 @@
-window.onload = function() {
-  
- const style = document.createElement('style');
- style.innerHTML = `
-   .loader-wrap {
-     position:fixed;
-     top:0;
-     left:0;
-     right:0;
-     bottom:0;
-     height:100%;
-     width:100%;
-     background:#fff;
-     z-index: 99;
-     display:grid;
-     place-items:center;
-     transition:0.4s ease;
-   }
-   .loader {
-       height:50px;
-       width:50px;
-       border-radius:50%;
-       -webkit-border-radius:50%;
-       border: 6px solid #f5f3f3;
-       border-left:6px solid #ff4093;
-       animation:loaderSpin 2s linear infinite;
-   }
-  
-   @keyframes loaderSpin {
-  0% { transform: rotate(0deg); }
-  
-  100% { transform: rotate(360deg) }
-}
- `;
- //append style in head
- document.head.appendChild(style)
-  
- const loaderWrap = document.createElement('div');
- loaderWrap.className = "loader-wrap";
- const loader = document.createElement("div");
- loader.className = "loader";
- loaderWrap.appendChild(loader);
- document.body.appendChild(loaderWrap); 
-  setTimeout(function(){
-      document.body.removeChild(loaderWrap);
-  },3000);
-  if (!sessionStorage.viewed){
-              const loader = document.querySelector(".loader-wrap");
-             document.body.appendChild(loader)
-              sessionStorage.viewed = 1;
-          }else{
-            document.body.removeChild(loader)
-          }
-}
+// create a div element for the preloader
+var mpreloader = document.createElement('div');
+
+// set the preloader's styles
+mpreloader.style.position = 'fixed';
+mpreloader.style.top = 0;
+mpreloader.style.left = 0;
+mpreloader.style.width = '100%';
+mpreloader.style.height = '100%';
+mpreloader.style.backgroundColor = '#fff';
+mpreloader.style.zIndex = 999999999;
+mpreloader.style.display="flex";
+mpreloader.style.justifyContent="center";
+mpreloader.style.alignItems="center";
+mpreloader.style.transition="0.4s ease-in-out";
+
+// create a div element for the spinner
+var mspinner = document.createElement('div');
+
+// set the spinner's styles
+mspinner.style.border = '2px solid #f1f1f1';
+mspinner.style.borderTop = '2px solid #ff3747';
+mspinner.style.borderRadius = '50%';
+mspinner.style.width = '33px';
+mspinner.style.height = '33px';
+mspinner.style.animation = 'spin 2s linear infinite';
+
+// create a keyframes animation for the spinner
+var mkeyframes = '@keyframes spin {0% { transform: rotate(0deg); }100% { transform: rotate(360deg); }}';
+var mstyle = document.createElement('style');
+mstyle.innerHTML = mkeyframes;
+document.getElementsByTagName('head')[0].appendChild(mstyle);
+
+// add the spinner to the preloader
+mpreloader.appendChild(mspinner);
+
+// add the preloader to the body
+document.body.appendChild(mpreloader);
+setTimeout(()=>{
+  document.body.removeChild(mpreloader)
+},5000);
